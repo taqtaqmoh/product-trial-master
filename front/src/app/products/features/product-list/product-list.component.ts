@@ -7,6 +7,7 @@ import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import {ProductDetailsComponent} from "../../ui/product-details/product-details.component";
+import {CartService} from "../../data-access/cart.service";
 
 const emptyProduct: Product = {
   id: 0,
@@ -34,6 +35,8 @@ const emptyProduct: Product = {
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
+  private readonly cartService = inject(CartService);
+
 
   public readonly products = this.productsService.products;
 
@@ -41,7 +44,8 @@ export class ProductListComponent implements OnInit {
   public isDialogDetailsVisible = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
-  public readonly product = signal<Product>(emptyProduct)
+  public readonly product = signal<Product>(emptyProduct);
+  cartProducts:any[] = [];
 
   ngOnInit() {
     this.productsService.get().subscribe();
@@ -91,6 +95,18 @@ export class ProductListComponent implements OnInit {
   public onShowDetails(product: Product){
     this.product.set(product);
     this.isDialogDetailsVisible = true;
+  }
+
+  public onAddToCart(product: Product){
+    if("cart" in localStorage){
+      this.cartProducts = JSON.parse(localStorage.getItem("cart")!);
+      this.cartProducts.push(product);
+      localStorage.setItem("cart", JSON.stringify(this.cartProducts));
+    }else{
+      this.cartProducts.push(product);
+      localStorage.setItem("cart", JSON.stringify(this.cartProducts));
+    }
+    this.cartService.changeCartProducts(this.cartProducts);
   }
 
 }
