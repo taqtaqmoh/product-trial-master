@@ -8,6 +8,7 @@ import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
 import {ProductDetailsComponent} from "../../ui/product-details/product-details.component";
 import {CartService} from "../../data-access/cart.service";
+import {PaginatorModule} from "primeng/paginator";
 
 const emptyProduct: Product = {
   id: 0,
@@ -31,7 +32,7 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, ProductDetailsComponent],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, ProductDetailsComponent, PaginatorModule],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
@@ -39,6 +40,10 @@ export class ProductListComponent implements OnInit {
 
 
   public readonly products = this.productsService.products;
+
+  public rows = 5;
+  public firstProduct = 0;
+  public lastProduct = this.rows;
 
   public isDialogVisible = false;
   public isDialogDetailsVisible = false;
@@ -109,4 +114,8 @@ export class ProductListComponent implements OnInit {
     this.cartService.changeCartProducts(this.cartProducts);
   }
 
+  public onPageChange(event:any){
+    this.firstProduct = event.page * this.rows;
+    this.lastProduct = this.firstProduct + this.rows;
+  }
 }
