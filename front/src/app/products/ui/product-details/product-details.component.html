@@ -1,0 +1,34 @@
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Nom : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().name }} </span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Prix : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().price }}</span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Description : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().description }}</span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Categoré : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().category }}</span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Quantitée : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().quantity }} </span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Etat du stock : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().inventoryStatus }}</span>
+</div>
+<div class="detail">
+  <label class="text-lg font-medium text-900 mt-2">Notation : </label>
+  <span class="font-medium text-secondary text-sm">{{ product().rating }}</span>
+</div>
+<div class="detail">
+  <p-image src="{{ product().image }}" alt="image" width="250"/>
+</div>
+<div>
+  <p-button type="button" (click)="onCancel()" label="Annuler" severity="help"/>
+</div>

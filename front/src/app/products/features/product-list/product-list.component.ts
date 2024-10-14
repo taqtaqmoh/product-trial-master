@@ -6,6 +6,7 @@ import { ButtonModule } from "primeng/button";
 import { CardModule } from "primeng/card";
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
+import {ProductDetailsComponent} from "../../ui/product-details/product-details.component";
 
 const emptyProduct: Product = {
   id: 0,
@@ -29,7 +30,7 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent],
+  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, ProductDetailsComponent],
 })
 export class ProductListComponent implements OnInit {
   private readonly productsService = inject(ProductsService);
@@ -37,8 +38,10 @@ export class ProductListComponent implements OnInit {
   public readonly products = this.productsService.products;
 
   public isDialogVisible = false;
+  public isDialogDetailsVisible = false;
   public isCreation = false;
   public readonly editedProduct = signal<Product>(emptyProduct);
+  public readonly product = signal<Product>(emptyProduct)
 
   ngOnInit() {
     this.productsService.get().subscribe();
@@ -73,7 +76,21 @@ export class ProductListComponent implements OnInit {
     this.closeDialog();
   }
 
+  public onCancelDetailsDialog(){
+    this.closeDetailsDialog();
+  }
+
   private closeDialog() {
     this.isDialogVisible = false;
   }
+
+  private closeDetailsDialog(){
+    this.isDialogDetailsVisible = false;
+  }
+
+  public onShowDetails(product: Product){
+    this.product.set(product);
+    this.isDialogDetailsVisible = true;
+  }
+
 }
