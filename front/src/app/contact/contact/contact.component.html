@@ -1,0 +1,32 @@
+<h1 class="text-center">Contact</h1>
+<p-toast></p-toast>
+<p-card class="block m-2">
+  <form #form="ngForm" (ngSubmit)="onSave(form)">
+    <div class="form-field">
+      <label for="email">Email </label>
+      <input
+        pInputText
+        id="email"
+        name="Email"
+        email
+        ngModel
+        required
+        />
+    </div>
+    <div class="form-field">
+      <label for="message">Message </label>
+      <textarea
+        pInputTextarea
+        id="message"
+        name="Message"
+        rows="5"
+        maxlength="300"
+        ngModel
+        required
+      ></textarea>
+    </div>
+  <div>
+    <p-button type="submit" [disabled]="form.invalid" label="Envoyer" severity="success"/>
+  </div>
+</form>
+</p-card>

@@ -1,6 +1,7 @@
 import { Routes } from "@angular/router";
 import { HomeComponent } from "./shared/features/home/home.component";
 import {CartComponent} from "./cart/cart.component";
+import {ContactComponent} from "./contact/contact/contact.component";
 
 export const APP_ROUTES: Routes = [
   {
@@ -16,6 +17,11 @@ export const APP_ROUTES: Routes = [
     path: "cart",
     component: CartComponent,
   },
+  {
+    path: "contact",
+    component: ContactComponent,
+  },
   { path: "", redirectTo: "home", pathMatch: "full" },
-  { path: "", redirectTo: "cart", pathMatch: "full" }
+  { path: "", redirectTo: "cart", pathMatch: "full" },
+  { path: "", redirectTo: "contact", pathMatch: "full" }
 ];
